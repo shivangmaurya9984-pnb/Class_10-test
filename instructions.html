@@ -5,147 +5,260 @@
 <title>General Instructions | Shivang Testing Agency</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 <style>
-:root{
-  --bg:#0b1020;
-  --card:#151a2e;
-  --border:rgba(255,255,255,0.12);
-  --text:#e8ecf4;
-  --muted:#b7bfd6;
-  --green:#2ecc71;
-  --orange:#f39c12;
-  --purple:#9b59b6;
-  --gray:#9aa3b2;
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #6366f1;
+  --bg: #0f172a;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --green: #10b981;
+  --orange: #f59e0b;
+  --purple: #8b5cf6;
+  --gray: #64748b;
+  --accent: #38bdf8;
 }
 
-*{box-sizing:border-box;font-family:Segoe UI,system-ui,sans-serif}
-
-body{
-  margin:0;
-  background:radial-gradient(80% 80% at 50% 0%,#141a3a,#070a14);
-  color:var(--text);
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 24px;
-  border-bottom:1px solid var(--border);
-}
-.brand h1{margin:0;font-size:20px}
-.brand small{color:var(--muted);font-size:12px}
-.lang{
-  background:#1a2040;
-  border:1px solid var(--border);
-  color:#fff;
-  padding:6px 10px;
-  border-radius:10px;
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.1) 0px, transparent 50%);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* MAIN */
-.wrap{
-  max-width:1050px;
-  margin:22px auto;
-  padding:0 16px;
-}
-.card{
-  background:linear-gradient(180deg,#171d38,#0e1328);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:24px 28px; /* ⬅ reduced */
+/* HEADER ANIMATION */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  animation: fadeInDown 0.8s ease-out;
 }
 
-/* TITLES */
-.title{
-  text-align:center;
-  font-size:24px;   /* ⬅ smaller */
-  letter-spacing:1px;
+.brand h1 {
+  margin: 0;
+  font-size: 22px;
+  background: linear-gradient(to right, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
 }
-.subtitle{
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:18px;
+
+.brand small {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.lang {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.lang:hover { background: rgba(255,255,255,0.1); }
+
+/* MAIN CARD - Premium Look */
+.wrap {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--accent);
+  font-size: 14px;
+  margin-bottom: 35px;
+  font-weight: 500;
 }
 
 /* SECTIONS */
-.section{margin-bottom:18px}
-.section h3{
-  margin-bottom:8px;
-  font-size:16px;
-}
-ol{
-  padding-left:20px;
-  margin:0;
-}
-li{
-  margin-bottom:6px;
-  font-size:14px;
-  color:var(--muted);
+.section {
+  margin-bottom: 30px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-/* STATUS */
-.status-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px 40px;
-  margin-top:10px;
-}
-.status{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:14px;
-}
-.box{
-  width:14px;height:14px;border-radius:3px;
-}
-.nv{background:var(--gray)}
-.na{background:var(--orange)}
-.ans{background:var(--green)}
-.mark{background:var(--purple)}
-.am{background:#c77dff}
-
-/* TWO COLUMN */
-.two{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:26px;
-}
-.warn{
-  color:#ff6b6b;
-  font-size:13px;
-  margin-top:8px;
+.section h3 {
+  color: var(--accent);
+  margin-bottom: 15px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* FOOTER */
-.footer{
-  border-top:1px solid var(--border);
-  padding-top:12px;
+.section h3::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 10px;
 }
-.check{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:14px;
-}
-.check input{width:16px;height:16px}
 
-.btn{
-  margin:14px auto 0;
-  display:block;
-  width:220px;      /* ⬅ smaller */
-  padding:10px;
-  border-radius:12px;
-  font-size:16px;
-  border:none;
-  background:#1f8f4d;
-  color:#fff;
-  cursor:pointer;
+ol { padding-left: 22px; }
+li {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
 }
-.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* STATUS GRID - Animated Boxes */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+  background: rgba(0,0,0,0.2);
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+
+.status:hover { transform: translateX(5px); }
+
+.box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.nv {background: var(--gray)}
+.na {background: var(--orange); box-shadow: 0 0 12px rgba(243, 156, 18, 0.3);}
+.ans {background: var(--green); box-shadow: 0 0 12px rgba(46, 204, 113, 0.3);}
+.mark {background: var(--purple)}
+.am {background: #c77dff}
+
+/* TWO COLUMN LAYOUT */
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .two { grid-template-columns: 1fr; }
+}
+
+.warn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  border-left: 4px solid #ef4444;
+  margin: 20px 0;
+}
+
+/* FOOTER & BUTTON */
+.footer {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid var(--border);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.check input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn:active:not(:disabled) { transform: translateY(0); }
+
+.btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray); }
+
 </style>
 </head>
 
@@ -165,61 +278,68 @@ li{
 <div class="wrap">
   <div class="card">
 
-    <div class="title">GENERAL INSTRUCTIONS</div>
-    <div class="subtitle">Please read the instructions carefully</div>
+    <div class="animate__animated animate__fadeIn">
+        <div class="title">GENERAL INSTRUCTIONS</div>
+        <div class="subtitle">Secure Examination Environment</div>
+    </div>
 
     <div class="section">
-      <h3>General Instructions:</h3>
+      <h3>General Overview</h3>
       <ol>
-        <li>Total duration of Examination is <b>100 minutes</b>.</li>
-        <li>The countdown timer will be displayed on the screen.</li>
-        <li>The Question Palette shows the status of each question:</li>
+        <li>Total duration of Examination is <b style="color:var(--accent)">100 minutes</b>.</li>
+        <li>A real-time countdown timer is active on the top-right corner.</li>
+        <li>Monitor your progress using the Question Palette:</li>
       </ol>
 
       <div class="status-grid">
-        <div class="status"><div class="box nv"></div>Not Visited</div>
-        <div class="status"><div class="box na"></div>Not Answered</div>
-        <div class="status"><div class="box ans"></div>Answered</div>
-        <div class="status"><div class="box mark"></div>Marked for Review</div>
-        <div class="status"><div class="box am"></div>Answered & Marked for Review</div>
+        <div class="status"><div class="box nv"></div> Not Visited</div>
+        <div class="status"><div class="box na"></div> Not Answered</div>
+        <div class="status"><div class="box ans"></div> Answered</div>
+        <div class="status"><div class="box mark"></div> Marked for Review</div>
+        <div class="status"><div class="box am"></div> Ans & Marked</div>
       </div>
     </div>
 
-    <div class="section two">
-      <div>
-        <h3>Navigating to a Question:</h3>
-        <ol>
-          <li>Click on the question number in the Question Palette.</li>
-          <li>Click on <b>Save & Next</b> to save your answer.</li>
-          <li>Click on <b>Mark for Review & Next</b> if you want to review later.</li>
-        </ol>
-      </div>
 
-      <div>
-        <h3>Answering a Question:</h3>
-        <ol>
-          <li>Select one option by clicking the radio button.</li>
-          <li>To change answer, click another option.</li>
-          <li>Click <b>Clear Response</b> to remove your answer.</li>
-        </ol>
-      </div>
+    <div class="warn">
+      <strong>Note:</strong> Ensure a stable internet connection. All activities are being monitored.
     </div>
-
-    <div class="warn">⚠ All questions will appear in your default language.</div>
 
     <div class="footer">
-      <div class="check">
-        <input type="checkbox" id="agree" onchange="btn.disabled=!this.checked">
-        <label for="agree">I have read and understood all the instructions.</label>
-      </div>
+      <label class="check">
+        <input type="checkbox" id="agree" onchange="toggleBtn()">
+        <span>I have read and understood all the instructions.</span>
+      </label>
 
-      <button class="btn" id="btn" disabled onclick="location.href='exam.html'">
-        PROCEED
+      <button class="btn" id="btn" disabled onclick="startExam()">
+        PROCEED TO EXAM
       </button>
     </div>
 
   </div>
 </div>
+
+<script>
+function toggleBtn() {
+  const checkbox = document.getElementById('agree');
+  const btn = document.getElementById('btn');
+  btn.disabled = !checkbox.checked;
+  
+  if(checkbox.checked) {
+    btn.classList.add('animate__animated', 'animate__pulse');
+  } else {
+    btn.classList.remove('animate__animated', 'animate__pulse');
+  }
+}
+
+function startExam() {
+    // Add a nice exit animation before leaving
+    document.querySelector('.card').style.animation = 'fadeOutUp 0.5s ease-in forwards';
+    setTimeout(() => {
+        window.location.href = 'exam.html';
+    }, 500);
+}
+</script>
 
 </body>
 </html>

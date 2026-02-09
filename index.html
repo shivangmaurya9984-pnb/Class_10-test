@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shivang Testing Agency | Mock Test</title>
+    <title>Shivang Testing Agency | Premium Mock Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #0d47a1;
-            --secondary: #1976d2;
-            --accent: #64b5f6;
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #38bdf8;
+            --gold: #fbbf24;
             --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -25,218 +26,310 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            /* Animated Gradient Background */
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0d47a1, #1e1b4b);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         header {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(12px);
-            padding: 14px 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 18px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        .logo-box {
             display: flex;
             align-items: center;
             gap: 12px;
-            color: #fff;
-            font-weight: 600;
+            font-size: 1.2rem;
         }
 
+        .logo-box strong { letter-spacing: 1px; }
+
         header span {
-            color: #c8e6c9;
-            font-weight: 400;
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .container {
             flex: 1;
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            padding: 60px;
-            gap: 40px;
+            padding: 40px 80px;
+            gap: 60px;
             align-items: center;
         }
 
+        /* Left Side Animation */
         .welcome {
             color: #fff;
-            opacity: 0;
-            transform: translateX(-60px);
-            animation: fadeInLeft 1.2s ease forwards;
+            animation: slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
 
         .welcome h1 {
-            font-size: 44px;
+            font-size: 52px;
             font-weight: 700;
-            margin-bottom: 20px;
+            line-height: 1.1;
+            margin-bottom: 25px;
         }
 
         .welcome h1 span {
-            color: #ffca28;
+            background: linear-gradient(to right, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
         }
 
         .welcome p {
             font-size: 18px;
-            line-height: 1.6;
-            max-width: 520px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            max-width: 550px;
         }
 
         .line {
-            width: 120px;
-            height: 4px;
-            background: #ffca28;
-            margin: 30px 0;
-            border-radius: 5px;
+            width: 80px;
+            height: 6px;
+            background: var(--accent);
+            margin: 35px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--accent);
         }
 
+        /* Right Side Card (Glassmorphism) */
         .card {
-            background: rgba(255,255,255,0.18);
-            backdrop-filter: blur(18px);
-            border-radius: 18px;
-            padding: 35px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            opacity: 0;
-            transform: translateX(60px);
-            animation: fadeInRight 1.2s ease forwards;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 45px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeInRight 1s ease-out 0.3s both;
         }
 
         .card h3 {
             color: #fff;
-            margin-bottom: 20px;
-            font-weight: 500;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: 600;
         }
 
         label {
-            color: #e3f2fd;
-            font-size: 14px;
-            margin-bottom: 6px;
+            color: var(--accent);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
             display: block;
+            font-weight: 600;
         }
 
         select {
             width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            font-size: 15px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(15, 23, 42, 0.6);
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            outline: none;
         }
 
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        }
+
+        select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Premium Button */
         .start-btn {
             width: 100%;
-            padding: 12px;
-            background: #0b4ea2;
+            padding: 16px;
+            background: linear-gradient(45deg, #0284c7, #0ea5e9);
             color: #fff;
             border: none;
             font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
             cursor: pointer;
-            border-radius: 3px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+
+        .start-btn:hover::before {
+            left: 100%;
         }
 
         .start-btn:hover {
-            background: #083b7a;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(14, 165, 233, 0.5);
         }
 
         .small-text {
-            margin-top: 15px;
+            margin-top: 25px;
             font-size: 13px;
-            color: #e1f5fe;
+            color: #94a3b8;
             text-align: center;
+        }
+
+        .small-text a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
         }
 
         footer {
             text-align: center;
-            padding: 15px;
-            color: #e3f2fd;
+            padding: 20px;
+            color: #64748b;
             font-size: 14px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        @keyframes fadeInLeft {
-            to { opacity: 1; transform: translateX(0); }
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
+        /* Mobile Responsive */
         @media (max-width: 900px) {
             .container {
                 grid-template-columns: 1fr;
-                padding: 40px 20px;
+                padding: 40px 24px;
+                text-align: center;
             }
-            .welcome h1 {
-                font-size: 34px;
-            }
+            .welcome h1 { font-size: 38px; }
+            .welcome p { margin: 0 auto; }
+            .line { margin: 30px auto; }
+            header { padding: 15px 20px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    🟢 <strong>Shivang Testing Agency</strong>
-    <span>Excellence in Assessment</span>
+    <div class="logo-box">
+        💎 <strong>STA PORTAL</strong>
+    </div>
+    <span>Shivang Testing Agency</span>
 </header>
 
 <main class="container">
 
-    <!-- LEFT -->
     <section class="welcome">
-        <h1>Welcome <span>💫 Riya 💎✨</span></h1>
+        <h1>Hello, <span>Riya 💎✨</span></h1>
         <p>
-            Believe in yourself and your abilities.  
-            Every mock test you attempt is one step closer to real exam success.
+            Your path to excellence starts here. Attempt our high-quality mock tests designed by experts to help you conquer your finals.
         </p>
 
         <div class="line"></div>
 
-        <p>
-            Welcome to <strong>Shivang Testing Agency</strong>,  
-            your trusted Test Practice Centre.
+        <p style="font-weight: 300;">
+            <strong style="color: #fff;">Authorized Test Practice Centre</strong><br>
+            Empowering students with real-time exam environments.
         </p>
     </section>
 
-    <!-- RIGHT -->
     <section class="card">
-        <h3>Select exam you would like to appear</h3>
+        <h3>Choose Your Assessment</h3>
 
-        <label>Class</label>
-        <select disabled>
-            <option>Class 10</option>
-        </select>
+        <div style="margin-bottom: 20px;">
+            <label>Current Grade</label>
+            <select disabled>
+                <option>Class 10 - Secondary</option>
+            </select>
+        </div>
 
-        <label>Subject</label>
-        <select id="subject">
-            <option value="">-- Select --</option>
-            <option value="science">Science</option>
-            <option value="math">Math</option>
-            <option value="sst">S.S.T (Social Science)</option>
-        </select>
+        <div>
+            <label>Select Subject</label>
+            <select id="subject">
+                <option value="">-- Click to Select Subject --</option>
+                <option value="science">🔬 Science</option>
+                <option value="math">📐 Mathematics</option>
+                <option value="sst">🌍 Social Science</option>
+            </select>
+        </div>
 
-        <button class="start-btn" onclick="startTest()">START MOCK TEST</button>
+        <button class="start-btn" onclick="startTest()">
+            LAUNCH MOCK TEST
+        </button>
 
         <div class="small-text">
-            For STA Mock Tests of December 2026 onwards, please click here
+            Looking for <a href="#">Upcoming Sessions (Dec 2026)?</a>
         </div>
     </section>
 
 </main>
 
 <footer>
-    © All Rights Reserved – Shivang Testing Agency
+    &copy; 2026 Shivang Testing Agency. All rights reserved. | Security & Privacy
 </footer>
 
 <script>
 function startTest() {
     const subject = document.getElementById("subject").value;
+    const btn = document.querySelector('.start-btn');
 
     if (subject === "") {
-        alert("Please select a subject");
+        alert("Bhai, pehle subject toh choose kar lo! 😊");
         return;
     }
 
-    // save subject
-    localStorage.setItem("selectedSubject", subject);
+    // Button loading effect
+    btn.innerHTML = "LOADING TEST...";
+    btn.style.opacity = "0.7";
 
-    // go to SET selection page
-    window.location.href = "set.html";
+    setTimeout(() => {
+        localStorage.setItem("selectedSubject", subject);
+        window.location.href = "set.html";
+    }, 800);
 }
 </script>
 
