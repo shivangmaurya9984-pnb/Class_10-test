@@ -8,7 +8,7 @@ if (typeof questions === "undefined" || !Array.isArray(questions)) {
 let currentIndex = 0;
 let answers = [];
 let status = [];
-let timeLeft = 6000; // 100 minutes
+let timeLeft = 3600; // 60 minutes = 1 hour
 let timerStarted = false;
 
 // ================== INIT ==================

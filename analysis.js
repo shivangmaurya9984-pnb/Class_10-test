@@ -1,55 +1,123 @@
-const examResult = JSON.parse(localStorage.getItem("examResult"));
-let index = 0;
+let currentIndex = 0;
+let answers = [];
+let status = [];
+let timeLeft = 6000; // 100 minutes
 
-const questions = examResult.questions;
-const answers = examResult.answers;
+/* INIT */
+for (let i = 0; i < questions.length; i++) {
+  answers[i] = null;
+  status[i] = "notVisited";
+}
 
+/* TIMER */
+setInterval(() => {
+  if (timeLeft <= 0) submitExam();
+  timeLeft--;
+
+  let h = String(Math.floor(timeLeft / 3600)).padStart(2, "0");
+  let m = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, "0");
+  let s = String(timeLeft % 60).padStart(2, "0");
+
+  document.getElementById("timer").innerText = `${h}:${m}:${s}`;
+}, 1000);
+
+/* LOAD QUESTION */
 function loadQuestion() {
-  const q = questions[index];
-  const userAns = answers[index];
+  const q = questions[currentIndex];
 
-  document.getElementById("qCount").innerText =
-    `Question ${index + 1} of ${questions.length}`;
-
+  document.getElementById("qno").innerText =
+    `Question ${currentIndex + 1}`;
   document.getElementById("questionText").innerText = q.question;
 
-  const optDiv = document.getElementById("options");
-  optDiv.innerHTML = "";
+  const opt = document.getElementById("options");
+  opt.innerHTML = "";
 
-  q.options.forEach((opt, i) => {
-    let cls = "";
-    if (i === q.correct - 1) cls = "correct";
-    if (i === userAns && userAns !== q.correct - 1) cls = "wrong";
-
-    optDiv.innerHTML += `<div class="${cls}">${String.fromCharCode(65+i)}. ${opt}</div>`;
+  q.options.forEach((o, i) => {
+    opt.innerHTML += `
+      <div class="option ${answers[currentIndex] === i ? "active" : ""}"
+           onclick="selectOption(${i})">
+        <span class="dot"></span>
+        ${o}
+      </div>
+    `;
   });
 
-  document.getElementById("correctLine").innerText =
-    `Correct Answer: ${String.fromCharCode(64 + q.correct)}. ${q.options[q.correct - 1]}`;
+  if (status[currentIndex] === "notVisited") {
+    status[currentIndex] = "notAnswered";
+  }
 
-  document.getElementById("topic").innerText =
-    `Topic: ${q.topic}`;
-
-  document.getElementById("explanation").innerText =
-    q.explanation;
+  buildPalette();
 }
 
-function nextQ() {
-  if (index < questions.length - 1) {
-    index++;
+/* SELECT OPTION */
+function selectOption(i) {
+  answers[currentIndex] = i;
+  status[currentIndex] =
+    status[currentIndex] === "marked"
+      ? "answeredMarked"
+      : "answered";
+
+  loadQuestion(); // 🔥 refresh highlight
+}
+
+/* ACTIONS */
+function saveAndNext() {
+  next();
+}
+
+function markForReview() {
+  status[currentIndex] =
+    answers[currentIndex] !== null ? "answeredMarked" : "marked";
+  buildPalette();
+}
+
+function markForReviewNext() {
+  markForReview();
+  next();
+}
+
+function clearResponse() {
+  answers[currentIndex] = null;
+  status[currentIndex] = "notAnswered";
+  loadQuestion();
+}
+
+/* NEXT */
+function next() {
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
     loadQuestion();
   }
 }
 
-function prevQ() {
-  if (index > 0) {
-    index--;
-    loadQuestion();
-  }
+/* PALETTE */
+function buildPalette() {
+  const p = document.getElementById("paletteGrid");
+  p.innerHTML = "";
+
+  questions.forEach((_, i) => {
+    p.innerHTML += `
+      <button class="pbtn ${status[i]}"
+        onclick="jump(${i})">
+        ${String(i + 1).padStart(2, "0")}
+      </button>
+    `;
+  });
 }
 
-function retryTest() {
-  location.href = "index.html";
+function jump(i) {
+  currentIndex = i;
+  loadQuestion();
 }
 
+/* SUBMIT */
+function submitExam() {
+  localStorage.setItem(
+    "examResult",
+    JSON.stringify({ questions, answers, status })
+  );
+  window.location.href = "summary.html";
+}
+
+/* START */
 loadQuestion();
