@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Your Question Set</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+  background: radial-gradient(circle at center, #1a1a2e, #0f0f1a);
+  min-height:100vh;
+  color:white;
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 40px;
+  color:#ddd;
+}
+
+.topbar .left{
+  font-size:18px;
+  font-weight:600;
+}
+
+.topbar .right{
+  font-size:15px;
+  opacity:0.85;
+}
+
+/* ===== FLOATING STARS ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(white 1px, transparent 1px);
+  background-size:50px 50px;
+  opacity:0.08;
+  z-index:-1;
+}
+
+/* ===== MAIN ===== */
+.container{
+  text-align:center;
+  width:90%;
+  max-width:1100px;
+  margin:40px auto;
+}
+
+h1{
+  font-size:2.4rem;
+  margin-bottom:40px;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  background:linear-gradient(to right,#00f2fe,#4facfe);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ===== CARDS ===== */
+.card-wrapper{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  flex-wrap:wrap;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  padding:40px 30px;
+  width:280px;
+  border:1px solid rgba(255,255,255,0.1);
+  transition:all .4s cubic-bezier(.175,.885,.32,1.275);
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-15px);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.set-a:hover{box-shadow:0 0 30px rgba(0,242,254,.4)}
+.set-b:hover{box-shadow:0 0 30px rgba(161,74,245,.4)}
+.set-c:hover{box-shadow:0 0 30px rgba(255,140,0,.4)}
+
+.icon-circle{
+  width:80px;
+  height:80px;
+  margin:0 auto 20px;
+  background:rgba(255,255,255,.1);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+}
+
+.card h2{font-size:1.8rem;margin-bottom:10px}
+.card p{color:#ccc;font-size:.9rem;margin-bottom:25px}
+
+.badge{
+  display:inline-block;
+  padding:5px 15px;
+  border-radius:50px;
+  font-weight:bold;
+  margin-bottom:20px;
+  font-size:.8rem;
+}
+
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  color:white;
+  font-weight:bold;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.btn-a{background:linear-gradient(45deg,#00f2fe,#4facfe)}
+.btn-b{background:linear-gradient(45deg,#a14af5,#e01cff)}
+.btn-c{background:linear-gradient(45deg,#ff8c00,#ff4e50)}
+
+.btn:active{transform:scale(.95)}
+
+/* ===== FOOTER ===== */
+.footer-info{
+  margin-top:50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#aaa;
+  font-size:.95rem;
+  padding:0 40px 30px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="left">Shivang Testing Agency</div>
+  <div class="right">Class 10 – Science</div>
+</div>
+
+<div class="container">
+  <h1>Select Your Question Set</h1>
+
+  <div class="card-wrapper">
+    <div class="card set-a">
+      <div class="icon-circle">📋</div>
+      <span class="badge" style="background:rgba(0,242,254,.2);color:#00f2fe">WARM-UP</span>
+      <h2>SET – A</h2>
+      <p>50 MCQs<br>Easy → Mid</p>
+      <button class="btn btn-a" onclick="selectSet('A')">START</button>
+    </div>
+
+    <div class="card set-b">
+      <div class="icon-circle">📋</div>
+      <span class="badge" style="background:rgba(161,74,245,.2);color:#e01cff">MID</span>
+      <h2>SET – B</h2>
+      <p>50 MCQs<br>Mid</p>
+      <button class="btn btn-b" onclick="selectSet('B')">START</button>
+    </div>
+
+    <div class="card set-c">
+      <div class="icon-circle">📋</div>
+      <span class="badge" style="background:rgba(255,140,0,.2);color:#ff8c00">HARD</span>
+      <h2>SET – C</h2>
+      <p>50 MCQs<br>Mid → Hard</p>
+      <button class="btn btn-c" onclick="selectSet('C')">START</button>
+    </div>
+  </div>
+
+  <div class="footer-info">
+    <span>⏱️ Time: 100 Minutes</span>
+    <span>📘 Based on Board Pattern</span>
+  </div>
+</div>
+
+<script>
+function selectSet(set){
+  localStorage.setItem("selectedSet", set);
+  window.location.href = "instructions.html";
+}
+</script>
+
+</body>
+</html>

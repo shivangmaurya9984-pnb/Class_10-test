@@ -1,33 +1,50 @@
+// ================== SAFETY CHECK ==================
+if (typeof questions === "undefined" || !Array.isArray(questions)) {
+  alert("Questions not loaded properly!");
+  throw new Error("Questions array missing");
+}
+
+// ================== VARIABLES ==================
 let currentIndex = 0;
 let answers = [];
 let status = [];
 let timeLeft = 6000; // 100 minutes
+let timerStarted = false;
 
-// INIT
+// ================== INIT ==================
 for (let i = 0; i < questions.length; i++) {
   answers[i] = null;
   status[i] = "notVisited";
 }
 
-// TIMER
-setInterval(() => {
-  if (timeLeft <= 0) submitExam();
+// ================== TIMER ==================
+function startTimer() {
+  if (timerStarted) return;
+  timerStarted = true;
 
-  timeLeft--;
+  setInterval(() => {
+    if (timeLeft <= 0) {
+      submitExam();
+      return;
+    }
 
-  let h = String(Math.floor(timeLeft / 3600)).padStart(2, "0");
-  let m = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, "0");
-  let s = String(timeLeft % 60).padStart(2, "0");
+    timeLeft--;
 
-  document.getElementById("timer").innerText = `${h}:${m}:${s}`;
-}, 1000);
+    let h = String(Math.floor(timeLeft / 3600)).padStart(2, "0");
+    let m = String(Math.floor((timeLeft % 3600) / 60)).padStart(2, "0");
+    let s = String(timeLeft % 60).padStart(2, "0");
 
-// LOAD QUESTION
+    document.getElementById("timer").innerText = `${h}:${m}:${s}`;
+  }, 1000);
+}
+
+// ================== LOAD QUESTION ==================
 function loadQuestion() {
   const q = questions[currentIndex];
 
   document.getElementById("qno").innerText =
     `Question ${currentIndex + 1}`;
+
   document.getElementById("questionText").innerText = q.question;
 
   const opt = document.getElementById("options");
@@ -50,7 +67,7 @@ function loadQuestion() {
   buildPalette();
 }
 
-// SELECT OPTION
+// ================== SELECT OPTION ==================
 function selectOption(i) {
   answers[currentIndex] = i;
   status[currentIndex] =
@@ -59,8 +76,12 @@ function selectOption(i) {
       : "answered";
 }
 
-// ACTIONS
+// ================== ACTIONS ==================
 function saveAndNext() {
+  if (currentIndex === questions.length - 1) {
+    alert("This is the last question.");
+    return;
+  }
   next();
 }
 
@@ -81,7 +102,7 @@ function clearResponse() {
   loadQuestion();
 }
 
-// NEXT
+// ================== NEXT ==================
 function next() {
   if (currentIndex < questions.length - 1) {
     currentIndex++;
@@ -89,7 +110,7 @@ function next() {
   }
 }
 
-// PALETTE
+// ================== PALETTE ==================
 function buildPalette() {
   const p = document.getElementById("paletteGrid");
   p.innerHTML = "";
@@ -108,7 +129,7 @@ function jump(i) {
   loadQuestion();
 }
 
-// SUBMIT
+// ================== SUBMIT ==================
 function submitExam() {
   const examResult = {
     questions,
@@ -120,5 +141,6 @@ function submitExam() {
   window.location.href = "summary.html";
 }
 
-// START
+// ================== START ==================
+startTimer();
 loadQuestion();

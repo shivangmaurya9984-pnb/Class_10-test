@@ -206,7 +206,6 @@
         <select id="subject">
             <option value="">-- Select --</option>
             <option value="science">Science</option>
-            <option value="english">English</option>
             <option value="math">Math</option>
             <option value="sst">S.S.T (Social Science)</option>
         </select>
@@ -233,8 +232,11 @@ function startTest() {
         return;
     }
 
+    // save subject
     localStorage.setItem("selectedSubject", subject);
-    window.location.href = "instructions.html";
+
+    // go to SET selection page
+    window.location.href = "set.html";
 }
 </script>
 

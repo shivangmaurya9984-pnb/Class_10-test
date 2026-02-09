@@ -3,11 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Test Performance Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="result.css">
 </head>
 <body>
 
 <div class="container">
+
+  <!-- HEADER INFO -->
+  <div style="text-align:center;margin-bottom:15px;opacity:.85">
+    <b>Class 10 Board</b> • 
+    <span id="resSubject">Subject</span> • 
+    Set <span id="resSet">A</span>
+  </div>
 
   <h1 class="title">Test Performance Analysis</h1>
 
@@ -37,6 +45,7 @@
     <div class="mini">Correct<br><b class="green-text" id="mCorrect">0</b></div>
     <div class="mini">Wrong<br><b class="red-text" id="mWrong">0</b></div>
     <div class="mini">Skipped<br><b class="orange-text" id="mSkipped">0</b></div>
+
     <div class="score">
       Final Score: <span id="scorePercent">0%</span>
       <div class="bar">
@@ -74,7 +83,7 @@
         <div><span class="dot orange"></span> Skipped <b id="pSkipped">0%</b></div>
       </div>
 
-      <!-- VIEW ANSWERS BUTTON (UPPER, VISIBLE) -->
+      <!-- VIEW ANSWERS BUTTON -->
       <button class="view-btn" onclick="viewAnswers()">
         🔍 View Your Answers
       </button>
@@ -83,6 +92,27 @@
   </div>
 
 </div>
+
+<script>
+  /* Header info */
+  const subjectMap = {
+    science: "Science",
+    math: "Mathematics",
+    sst: "Social Science"
+  };
+
+  const sub = localStorage.getItem("selectedSubject");
+  const set = localStorage.getItem("selectedSet") || "A";
+
+  document.getElementById("resSubject").innerText =
+    subjectMap[sub] || "Subject";
+  document.getElementById("resSet").innerText = set;
+
+  /* View answers button */
+  function viewAnswers(){
+    window.location.href = "analysis.html";
+  }
+</script>
 
 <script src="result.js"></script>
 </body>

@@ -22,7 +22,6 @@
     Subject : <b id="subjectName"></b>
   </div>
 
-  <!-- 100 minutes timer -->
   <div class="timer" id="timer">01:40:00</div>
 </div>
 
@@ -33,7 +32,6 @@
   <div class="card">
     <div class="qno" id="qno">Question 1</div>
     <div class="question" id="questionText"></div>
-
     <div id="options"></div>
 
     <div class="actions">
@@ -56,31 +54,43 @@
 
 </div>
 
+<!-- 🔥 FINAL SCRIPT LOADER -->
 <script>
-  /* Candidate Name */
+  // Candidate name
   document.getElementById("candName").innerText = "Riya";
 
-  /* Subject handling – SAME LOGIC, ONLY TEXT DISPLAY */
-  const subject = localStorage.getItem("selectedSubject");
+  const subject = localStorage.getItem("selectedSubject"); // science/math/sst
+  const set = localStorage.getItem("selectedSet");         // A/B/C
 
- if(subject === "science"){
-  document.getElementById("subjectName").innerText = "SCIENCE";
-  document.write('<script src="data/science.js"><\/script>');
-}
-else if(subject === "english"){
-  document.getElementById("subjectName").innerText = "ENGLISH";
-  document.write('<script src="data/english.js"><\/script>');
-}
-else if(subject === "math"){
-  document.getElementById("subjectName").innerText = "MATHEMATICS";
-  document.write('<script src="data/math.js"><\/script>');
-}
-else if(subject === "sst"){
-  document.getElementById("subjectName").innerText = "SOCIAL SCIENCE";
-  document.write('<script src="data/sst.js"><\/script>');
-}
+  const subjectMap = {
+    science: "SCIENCE",
+    math: "MATHEMATICS",
+    sst: "SOCIAL SCIENCE"
+  };
+
+  document.getElementById("subjectName").innerText =
+    subjectMap[subject] || "SUBJECT";
+
+  // Build data file path
+  const dataFile = `data/${subject}_set${set}.js`;
+
+  // Load questions first
+  const dataScript = document.createElement("script");
+  dataScript.src = dataFile;
+
+  dataScript.onload = () => {
+    // Load exam logic AFTER questions exist
+    const examScript = document.createElement("script");
+    examScript.src = "exam.js";
+    document.body.appendChild(examScript);
+  };
+
+  dataScript.onerror = () => {
+    alert("Question file not found!");
+  };
+
+  document.body.appendChild(dataScript);
 </script>
 
-<script src="exam.js"></script>
 </body>
 </html>
