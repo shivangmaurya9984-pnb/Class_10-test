@@ -1,4 +1,4 @@
-const mathQuizSet1 = [
+const questions = [
   {
     "id": 1,
     "question": "निम्नलिखित में से कौन-सी अभाज्य संख्या है?",
@@ -400,3 +400,4 @@ const mathQuizSet1 = [
     "explanation": "$5/10 = 1/2$।"
   }
 ];
+
