@@ -1,17 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* --- MASTER COLOR SETTINGS --- */
 :root {
+  /* LIGHT MODE COLORS */
   --primary: #4361ee;
   --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --header-bg: rgba(255, 255, 255, 0.8);
   --text-main: #1d1d1f;
   --text-muted: #86868b;
+  --option-bg: #ffffff;
+  --option-hover: #f0f4ff;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --palette-empty: #e5e5ea;
+  
+  /* Status Colors */
   --success: #34c759;
   --danger: #ff3b30;
   --warning: #ff9500;
   --purple: #af52de;
 }
 
+/* DARK MODE COLORS */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-gradient: linear-gradient(135deg, #0f0f10 0%, #1c1c1e 100%);
+    --card-bg: #1c1c1e;
+    --header-bg: rgba(28, 28, 30, 0.9);
+    --text-main: #f5f5f7;
+    --text-muted: #a1a1a6;
+    --option-bg: #2c2c2e;
+    --option-hover: #3a3a3c;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --palette-empty: #3a3a3c;
+  }
+}
+
+/* --- RESET & GLOBAL --- */
 * { 
   margin: 0; padding: 0; box-sizing: border-box; 
   font-family: 'Inter', -apple-system, sans-serif; 
@@ -22,34 +47,33 @@ body {
   min-height: 100vh;
   color: var(--text-main);
   padding-bottom: 40px;
+  transition: background 0.3s ease;
 }
 
-/* --- ELEGANT HEADER --- */
+/* --- HEADER --- */
 .header {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--header-bg);
   backdrop-filter: blur(20px) saturate(180%);
   display: flex; justify-content: space-between; align-items: center;
   padding: 12px 40px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.05);
 }
 
 .header-left h2 { font-weight: 700; color: var(--primary); font-size: 22px; }
-.header-center { font-weight: 500; color: var(--text-muted); font-size: 14px; }
 
 .timer {
-  background: #1d1d1f;
-  color: #fff;
+  background: var(--text-main);
+  color: var(--card-bg);
   padding: 8px 20px;
   border-radius: 10px;
   font-family: 'Courier New', monospace;
   font-weight: 700;
   font-size: 18px;
-  letter-spacing: 1px;
 }
 
-/* --- LAYOUT GRID --- */
+/* --- MAIN LAYOUT --- */
 .main {
   display: grid;
   grid-template-columns: 1fr 360px;
@@ -59,63 +83,85 @@ body {
   margin: 0 auto;
 }
 
+@media (max-width: 1000px) { .main { grid-template-columns: 1fr; } }
+
 .card {
   background: var(--card-bg);
   border-radius: 24px;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid var(--border-color);
   padding: 35px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  animation: popIn 0.5s ease-out;
 }
 
-.qno { font-weight: 700; color: var(--primary); text-transform: uppercase; font-size: 13px; margin-bottom: 12px; }
+.qno { font-weight: 700; color: var(--primary); text-transform: uppercase; font-size: 13px; margin-bottom: 12px; display: block; }
 .question { font-size: 20px; font-weight: 600; line-height: 1.5; margin-bottom: 30px; }
 
-/* --- INTERACTIVE OPTIONS --- */
+/* ===== OPTIONS ===== */
 #options .option {
-  display: flex; align-items: center;
-  padding: 18px 24px;
-  margin-bottom: 14px;
-  background: #fff;
-  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  margin-bottom: 15px;
+  background: var(--option-bg);
+  border: 2px solid var(--border-color);
   border-radius: 16px;
   cursor: pointer;
-  transition: 0.25s all ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: all 0.25s ease;
+  font-weight: 500;
 }
 
+/* Hover */
 #options .option:hover {
-  background: #f0f4ff;
+  background: var(--option-hover);
   border-color: var(--primary);
-  transform: translateY(-2px);
 }
 
+/* ✅ SELECTED OPTION */
 #options .option.active {
-  background: #eef2ff;
+  background: var(--primary);
   border-color: var(--primary);
-  box-shadow: 0 10px 20px rgba(67, 97, 238, 0.1);
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(67, 97, 238, 0.35);
 }
 
-/* --- BUTTONS (NEUMORPHIC TOUCH) --- */
-.actions { display: flex; gap: 12px; margin-top: 40px; }
+/* Dot */
+.dot {
+  height: 12px;
+  width: 12px;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  margin-right: 15px;
+  background: transparent;
+}
+
+/* Dot when selected */
+.option.active .dot {
+  background: #fff;
+  border-color: #fff;
+}
+
+/* --- BUTTONS --- */
+.actions { display: flex; gap: 12px; margin-top: 40px; flex-wrap: wrap; }
 
 .btn {
-  padding: 12px 22px;
-  border-radius: 12px;
+  padding: 14px 24px;
+  border-radius: 14px;
   border: none;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
   font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.save { background: var(--primary); color: #fff; }
-.review { background: #fff; color: var(--warning); border: 2px solid var(--warning); }
-.next { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
-.clear { background: transparent; color: var(--text-muted); }
-.submit { background: var(--success); color: #fff; margin-left: auto; }
+.save { background: var(--primary); color: #fff; box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3); }
+.review { background: transparent; color: var(--warning); border: 2px solid var(--warning); }
+.next { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.submit { background: var(--success); color: #fff; margin-left: auto; box-shadow: 0 5px 15px rgba(52, 199, 89, 0.3); }
 
-.btn:hover { transform: scale(1.03); opacity: 0.9; }
+.btn:hover { transform: translateY(-3px); opacity: 0.9; }
 
 /* --- PALETTE GRID --- */
 .palette {
@@ -126,28 +172,23 @@ body {
 }
 
 .pbtn {
-  height: 44px;
+  height: 48px;
   border-radius: 12px;
   border: none;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: 0.3s;
-  background: #e5e5ea;
-  color: #1d1d1f;
+  background: var(--palette-empty);
+  color: var(--text-main);
 }
 
-.pbtn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.pbtn:hover { transform: scale(1.1); z-index: 2; }
 
-/* Palette Statuses */
-.notVisited { background: #e5e5ea; }
 .notAnswered { background: var(--warning); color: #fff; }
 .answered { background: var(--success); color: #fff; }
 .marked { background: var(--purple); color: #fff; }
 
-/* --- ANIMATION --- */
 @keyframes popIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.card { animation: popIn 0.5s ease-out; }    

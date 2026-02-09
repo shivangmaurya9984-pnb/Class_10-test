@@ -51,13 +51,14 @@ function loadQuestion() {
   opt.innerHTML = "";
 
   q.options.forEach((o, i) => {
+    const isSelected = answers[currentIndex] === i;
+
     opt.innerHTML += `
-      <label class="option">
-        <input type="radio" name="opt"
-          ${answers[currentIndex] === i ? "checked" : ""}
-          onclick="selectOption(${i})">
-        <span class="radio"></span>${o}
-      </label>`;
+      <label class="option ${isSelected ? "active" : ""}" onclick="selectOption(${i})">
+        <span class="dot"></span>
+        ${o}
+      </label>
+    `;
   });
 
   if (status[currentIndex] === "notVisited") {
@@ -74,15 +75,17 @@ function selectOption(i) {
     status[currentIndex] === "marked"
       ? "answeredMarked"
       : "answered";
+
+  // 🔥 IMPORTANT: re-render to apply active class
+  loadQuestion();
 }
 
 // ================== ACTIONS ==================
 function saveAndNext() {
-  if (currentIndex === questions.length - 1) {
-    alert("This is the last question.");
-    return;
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    loadQuestion();
   }
-  next();
 }
 
 function markForReview() {
@@ -93,21 +96,13 @@ function markForReview() {
 
 function markForReviewNext() {
   markForReview();
-  next();
+  saveAndNext();
 }
 
 function clearResponse() {
   answers[currentIndex] = null;
   status[currentIndex] = "notAnswered";
   loadQuestion();
-}
-
-// ================== NEXT ==================
-function next() {
-  if (currentIndex < questions.length - 1) {
-    currentIndex++;
-    loadQuestion();
-  }
 }
 
 // ================== PALETTE ==================
@@ -117,10 +112,10 @@ function buildPalette() {
 
   questions.forEach((_, i) => {
     p.innerHTML += `
-      <button class="pbtn ${status[i]}"
-        onclick="jump(${i})">
+      <button class="pbtn ${status[i]}" onclick="jump(${i})">
         ${String(i + 1).padStart(2, "0")}
-      </button>`;
+      </button>
+    `;
   });
 }
 
@@ -131,13 +126,10 @@ function jump(i) {
 
 // ================== SUBMIT ==================
 function submitExam() {
-  const examResult = {
-    questions,
-    answers,
-    status
-  };
-
-  localStorage.setItem("examResult", JSON.stringify(examResult));
+  localStorage.setItem(
+    "examResult",
+    JSON.stringify({ questions, answers, status })
+  );
   window.location.href = "summary.html";
 }
 
